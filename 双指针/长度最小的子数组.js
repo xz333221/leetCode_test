@@ -12,6 +12,7 @@
  进阶:
 
  如果你已经完成了O(n) 时间复杂度的解法, 请尝试 O(n log n) 时间复杂度的解法。
+ https://leetcode-cn.com/problems/minimum-size-subarray-sum/solution/209shuang-zhi-zhen-hua-dong-chuang-kou-by-fo-qian-/
  */
 /**
  * @param {number} s
@@ -20,11 +21,28 @@
  */
 var minSubArrayLen = function (s, nums) {
   let len = nums.length
+  let min_len_arr = []
+  let sum = 0
 
+  // 思路： 每个数字为起始找到最短 push 到数组中
   for (let i = 0; i < len - 1; i++) {
-    let sum = nums[i]
-    if (nums[i] === s) return 1
-    // while ()
+
+    let j = i
+    while (j < len) {
+      sum += nums[j]
+      if (sum >= s) {
+        min_len_arr.push(j - i + 1)
+        break
+      }else{
+        j++
+      }
+    }
+    sum = 0
+  }
+  if(min_len_arr.length===0){
+    return 0
+  }else {
+    return Math.min(...min_len_arr)
   }
 }
 let s = 7, nums = [2, 3, 1, 2, 4, 3]
